@@ -22,6 +22,16 @@ test('shows only the current selection and links to complete research history', 
   expect(onOpenHistory).toHaveBeenCalledOnce()
 })
 
+test('does not show a current research button on the history page', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify([{ id: companyFixture.id }]), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  vi.spyOn(repository, 'getCompany').mockResolvedValue(structuredClone(companyFixture))
+
+  render(<ResearchActivityWorkspace history />)
+
+  expect(await screen.findByRole('heading', { name: 'Research history' })).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: /Current research/i })).not.toBeInTheDocument()
+})
+
 test.each([0, 1])('shows Not enough data for a finished run with %i sources despite supported signals', async (count) => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify([{ id: companyFixture.id }]), { status: 200 }))
   vi.spyOn(repository, 'getCompany').mockResolvedValue({

@@ -91,7 +91,7 @@ export function OpportunityWorkspace() {
           {view === 'scoring' && <IcpScoringWorkspace onEditProfile={() => setView('profiles')} />}
           {view === 'leads' && <LeadsWorkspace onOpenCompany={openCompany} />}
           {view === 'activity' && <ResearchActivityWorkspace companyIds={activeResearchCompanyIds} initialCompanyId={openCompanyId} onInitialCompanyOpened={() => setOpenCompanyId(null)} onOpenHistory={() => setView('history')} />}
-          {view === 'history' && <ResearchActivityWorkspace history onBackToResearch={() => setView('activity')} />}
+          {view === 'history' && <ResearchActivityWorkspace history />}
           <div hidden={view !== 'settings'}><SettingsWorkspace section={settingsSection} onSection={setSettingsSection} appearance={appearance} setAppearance={setAppearance} {...sources} limit={logLimit} setLimit={setLogLimit} /></div>
         </div>
       </main>
